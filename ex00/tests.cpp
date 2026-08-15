@@ -26,3 +26,14 @@ TEST_CASE("removing an item drops the count and has() stops finding it") {
   CHECK(inv.count() == before - 1);
   CHECK(inv.has("potion") == false);
 }
+
+TEST_CASE("removing a missing item is a no-op: count unchanged, other items "
+          "untouched") {
+  Inventory inv;
+  inv.add("potion");
+
+  int before = inv.count();
+  inv.remove("sword");              // missing item
+  CHECK(inv.count() == before);     // should be same as before
+  CHECK(inv.has("potion") == true); // should still be inside
+}
