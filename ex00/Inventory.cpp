@@ -5,8 +5,10 @@
 void Inventory::add(const std::string &item) { m_items.push_back(item); }
 
 void Inventory::remove(const std::string &item) {
-  (void)item;
-  m_items.clear();
+  auto it = std::find(m_items.begin(), m_items.end(), item);
+  if (it != m_items.end()) {
+    m_items.erase(it);
+  }
 }
 
 bool Inventory::has(const std::string &item) const {
